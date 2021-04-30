@@ -3,10 +3,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const winston = require('./logger');
+const mongoose = require('mongoose');
+const config = require('./config').get(process.env.NODE_ENV);
 
 const indexRouter = require('./app/routes/index');
 
 const app = express();
+
+/**
+ * Database configuration
+ * Reference: http://mongoosejs.com/docs/connections.html
+ */
+mongoose.connect(config.database.url, config.database.options);
 
 /**
  * View engine setup

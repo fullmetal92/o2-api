@@ -19,7 +19,9 @@ const config = {
         database: {
             name: '',
             username: '',
-            password: ''
+            password: '',
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         },
 
         security: {
@@ -50,10 +52,12 @@ const config = {
         },
 
         database: {
-            url: 'mongodb://127.0.0.1:27017/astro-db',
+            url: 'mongodb+srv://cluster0.1xaaj.mongodb.net/o2-app-dev?retryWrites=true&w=majority',
             options: {
                 user: 'dev-db-user',
-                pass: '5Bc8rCfxuoUhNjt7'
+                pass: '5Bc8rCfxuoUhNjt7',
+                useNewUrlParser: true,
+                useUnifiedTopology: true
             }
         },
 
