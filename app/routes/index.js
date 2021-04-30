@@ -3,7 +3,9 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json('{"name":"John", "age":31, "city":"New York"}', );
+  res.json({
+    message: 'Welcome to the COVID relief app'
+  });
 });
 
 module.exports = router;
