@@ -1,6 +1,5 @@
 /**
- * Project Astro configuration
- * Created by fatal1ty on 8/6/17.
+ * Project O2 Configuration
  */
 
 const config = {
@@ -53,8 +52,8 @@ const config = {
         database: {
             url: 'mongodb://127.0.0.1:27017/astro-db',
             options: {
-                user: 'astro',
-                pass: 'astro'
+                user: 'dev-db-user',
+                pass: '5Bc8rCfxuoUhNjt7'
             }
         },
 
