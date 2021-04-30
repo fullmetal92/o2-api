@@ -34,7 +34,7 @@ const config = {
         },
 
         logger: {
-            dirName: 'log',
+            dirName: 'logs',
             extension: '.log',
             dateFormat: 'DD-MM-YYYY'
         }
@@ -69,7 +69,7 @@ const config = {
         },
 
         logger: {
-            dirName: 'log',
+            dirName: 'logs',
             extension: '.log',
             dateFormat: 'DD-MM-YYYY'
         }
