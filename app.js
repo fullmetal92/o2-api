@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config').get(process.env.NODE_ENV);
 
 const indexRouter = require('./app/routes/index');
+const sandboxRouter = require('./app/routes/misc/sandbox');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(cookieParser());
  * Routes
  */
 app.use('/', indexRouter);
+app.use('/sandbox', sandboxRouter);
 
 /**
  * Catch 404 and forward to error handler
