@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const async = require('async');
 const express = require('express');
 const winston = require('../../../logger');
 const router = express.Router();
@@ -48,6 +47,9 @@ router.post('/', function (req, res, next) {
     });
 });
 
+/**
+ * Import all category from data source
+ */
 router.post('/import', function (req, res, next) {
 
     winston.info('Starting category import');
@@ -71,9 +73,8 @@ router.post('/import', function (req, res, next) {
         } else {
             winston.error('No data found for import');
         }
-        res.status(200).json({});
+        res.status(201).json({});
     });
-    //res.status(401).json({});
 });
 
 module.exports = router;

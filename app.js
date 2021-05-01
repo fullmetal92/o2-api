@@ -8,7 +8,9 @@ const config = require('./config').get(process.env.NODE_ENV);
 
 const indexRouter = require('./app/routes/index');
 const sandboxRouter = require('./app/routes/misc/sandbox');
+const statesRouter = require('./app/routes/geographic/states');
 const categoryRouter = require('./app/routes/categories/categories');
+
 
 const app = express();
 
@@ -38,6 +40,7 @@ app.use(cookieParser());
  * Routes
  */
 app.use('/', indexRouter);
+app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);
 app.use('/categories', categoryRouter);
 
