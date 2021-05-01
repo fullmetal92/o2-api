@@ -1,0 +1,18 @@
+[
+  {
+    "code": "oxygen",
+    "name": "Oxygen"
+  },
+  {
+    "code": "plasma",
+    "name": "Plasma"
+  },
+  {
+    "code": "beds",
+    "name": "Beds"
+  },
+  {
+    "code": "food",
+    "name": "Food"
+  }
+]
