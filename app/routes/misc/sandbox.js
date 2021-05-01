@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const SandboxModel = require('../../models/misc/SandboxModel');
 
+/**
+ * Get all instances
+ */
+router.get('/all', function (req, res, next) {
+    SandboxModel.find({}).then(function (items) {
+        res.status(200).json(items);
+    });
+});
+
+/**
+ * Save a new sandbox instance
+ */
 router.post('/', function (req, res, next) {
 
     const sandboxModel = new SandboxModel({
