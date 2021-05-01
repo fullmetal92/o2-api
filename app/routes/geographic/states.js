@@ -1,17 +1,20 @@
 'use strict';
 
+const _ = require('underscore');
+const slugify = require('slugify');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const router = express.Router();
 const winston = require('../../../logger');
+const CityModel = require('../../models/geographic/CityModel');
 const StateModel = require('../../models/geographic/StateModel');
 
 /**
  * Get all states
  */
 router.get('/', function (req, res, next) {
-    StateModel.find({}, {code: true, name: true}).then(states => {
+    StateModel.find({}, {code: true, name: true, cities: true}).populate('cities').then(states => {
         res.status(200).json(states)
     }).catch(err => {
         res.status(404).json({});
@@ -41,37 +44,45 @@ router.post('/import', function (req, res, next) {
         let documents = JSON.parse(data);
         if (documents) {
 
-            // // Sort Documents
-            // let sortedDocuments = documents.sort(function(a, b){
-            //     let textA = a.name.toUpperCase();
-            //     let textB = b.name.toUpperCase();
-            //     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            // });
+            let groupedDocuments = _.chain(documents).groupBy('state')
+                .map(function (value, key) {
+                    return {
+                        code: slugify(key.toLowerCase()),
+                        name: key,
+                        cities: _.pluck(value, 'city').map(function (value, key) {
+                            return {
+                                code: slugify(value.toLowerCase()),
+                                name: value
+                            }
+                        })
+                    }
+                }).sortBy('code');
 
-            // Get list of states
-            let listOfStates = documents.map(o => o.state);
+            groupedDocuments.forEach(state => {
 
-            // Remove duplicates
-            listOfStates = listOfStates.filter(function (elem, pos) {
-                return listOfStates.indexOf(elem) === pos;
-            });
-
-            // Sort by alphanumeric order
-            let sortedStateList = listOfStates.sort(function (a, b) {
-                let textA = a.toUpperCase();
-                let textB = b.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
-
-            // Save to database
-            sortedStateList.forEach((stateName) => {
+                // Get state model
                 let stateModel = new StateModel({
-                    code: stateName.toLowerCase(),
-                    name: stateName
+                    code: state.code,
+                    name: state.name,
                 });
-                stateModel.save().then((result) => {
-                    winston.info('Saved State :' + result._doc.code);
-                }).catch((err) => {
+
+                // Get list of city models
+                let cityModelList = [];
+                state.cities.forEach(city => {
+                    let cityModel = new CityModel({
+                        code: city.code,
+                        name: city.name,
+                        state: stateModel._id
+                    });
+                    cityModel.save().then(() => {
+                    }).catch(err => winston.error(err));
+                    cityModelList.push(cityModel);
+                });
+
+                stateModel.cities = cityModelList;
+                stateModel.save().then(result => {
+                    winston.info('Record saved: ' + result._doc.code);
+                }).catch(err => {
                     winston.error(err);
                 });
             });
