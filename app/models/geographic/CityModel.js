@@ -3,14 +3,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const stateSchema = new Schema({
+const citySchema = new Schema({
     code: {type: String, required: true, unique: true},
-    name: {type: String, required: true},
-    icon: {type: String},
-    cities: [{
+    name: {type: String},
+    state: {
         type: Schema.Types.ObjectId,
-        ref: 'City'
-    }]
+        ref: 'State'
+    }
 }, {
     timestamps: {
         createdAt: 'created_at',
@@ -18,5 +17,5 @@ const stateSchema = new Schema({
     }
 });
 
-const State = mongoose.model('State', stateSchema);
-module.exports = State;
+const City = mongoose.model('City', citySchema);
+module.exports = City;
