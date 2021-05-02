@@ -9,6 +9,7 @@ const config = require('./config').get(process.env.NODE_ENV);
 const indexRouter = require('./app/routes/index');
 const sandboxRouter = require('./app/routes/misc/sandbox');
 const contactusRouter = require('./app/routes/contactus');
+const feedbackRouter = require('./app/routes/feedback');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/sandbox', sandboxRouter);
 app.use('/contactus', contactusRouter);
+app.use('/feedback', feedbackRouter);
 
 /**
  * Catch 404 and forward to error handler
