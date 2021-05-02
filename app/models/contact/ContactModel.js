@@ -5,9 +5,17 @@ const Schema = mongoose.Schema;
 
 const contactSchema = new Schema({
     name: {type: String, required: true, maxlength: 255},
-    phone: {type: String, required: true, maxlength: 10},
+    phone: {type: String, required: true, maxlength: 10, unique: true},
     message: {type: String, maxlength: 2064},
-    services: [{
+    state: {
+        type: Schema.Types.ObjectId,
+        ref: 'State'
+    },
+    city: {
+        type: Schema.Types.ObjectId,
+        ref: 'City'
+    },
+    categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Category'
     }]
