@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const ContactUSModel = require('../models/misc/ContactusModel');
-const {body, validationResult} = require('express-validator');
 const validator = require('../validator/validator');
 
 router.post('/', validator.contactusValidation, function(req, res, next) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({errors: errors.array()});
-        }
         const contactUSModel = new ContactUSModel({
             'firstName': req.body.firstName,
             'lastName': req.body.lastName,
