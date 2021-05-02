@@ -49,7 +49,7 @@ app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);
 app.use('/contacts', contactsRouter);
 app.use('/categories', categoryRouter);
-app.use('/contactus', contactusRouter);
+app.use('/contact-us', contactusRouter);
 app.use('/feedback', feedbackRouter);
 
 /**

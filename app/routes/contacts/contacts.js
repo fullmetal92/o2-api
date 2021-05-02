@@ -24,37 +24,37 @@ const CategoryModel = require('../../models/categories/CategoryModel');
 //     })
 // });
 
-router.get('/search', function (req, res, next) {
-
-    let queryId = req.query.id;
-    let queryState = req.query.state;
-    let queryCategories = req.query.categories || '';
-
-    if (queryCategories) {
-        queryCategories = queryCategories.split(',');
-    }
-
-    ContactModel.find({
-        // _id: queryId,
-        // state: queryState,
-        // categories: {$in: queryCategories}
-        $or: [
-            { _id: queryId },
-            { phone: req.query.phone },
-            //{ categories: {code: {$in: {queryCategories} } } }
-            { categories: {$in: {queryCategories} }}
-        ]
-    }).then(result => {
-        //console.log(result);
-        if (result) {
-            res.status(200).json(result)
-        } else {
-            res.status(200).json([]);
-        }
-    }).catch(err => {
-        res.status(400).json(err);
-    });
-});
+// router.get('/search', function (req, res, next) {
+//
+//     let queryId = req.query.id;
+//     let queryState = req.query.state;
+//     let queryCategories = req.query.categories || '';
+//
+//     if (queryCategories) {
+//         queryCategories = queryCategories.split(',');
+//     }
+//
+//     ContactModel.find({
+//         // _id: queryId,
+//         // state: queryState,
+//         // categories: {$in: queryCategories}
+//         $or: [
+//             { _id: queryId },
+//             { phone: req.query.phone },
+//             //{ categories: {code: {$in: {queryCategories} } } }
+//             { categories: {$in: {queryCategories} }}
+//         ]
+//     }).then(result => {
+//         //console.log(result);
+//         if (result) {
+//             res.status(200).json(result)
+//         } else {
+//             res.status(200).json([]);
+//         }
+//     }).catch(err => {
+//         res.status(400).json(err);
+//     });
+// });
 
 /**
  * Create new contact
