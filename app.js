@@ -13,6 +13,8 @@ const statesRouter = require('./app/routes/geographic/states');
 const contactsRouter = require('./app/routes/contacts/contacts');
 const categoryRouter = require('./app/routes/categories/categories');
 
+const contactusRouter = require('./app/routes/contactus');
+const feedbackRouter = require('./app/routes/feedback');
 
 const app = express();
 
@@ -47,6 +49,8 @@ app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);
 app.use('/contacts', contactsRouter);
 app.use('/categories', categoryRouter);
+app.use('/contactus', contactusRouter);
+app.use('/feedback', feedbackRouter);
 
 /**
  * Catch 404 and forward to error handler
