@@ -10,6 +10,7 @@ const indexRouter = require('./app/routes/index');
 const sandboxRouter = require('./app/routes/misc/sandbox');
 const citiesRouter = require('./app/routes/geographic/cities');
 const statesRouter = require('./app/routes/geographic/states');
+const contactsRouter = require('./app/routes/contacts/contacts');
 const categoryRouter = require('./app/routes/categories/categories');
 
 
@@ -44,6 +45,7 @@ app.use('/', indexRouter);
 app.use('/cities', citiesRouter);
 app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);
+app.use('/contacts', contactsRouter);
 app.use('/categories', categoryRouter);
 
 /**
