@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const citySchema = new Schema({
-    code: {type: String, required: true, unique: true},
+    code: {type: String, required: true},
     name: {type: String},
     state: {
         type: Schema.Types.ObjectId,

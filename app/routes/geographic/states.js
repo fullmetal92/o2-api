@@ -50,7 +50,7 @@ router.post('/import', function (req, res, next) {
                     return {
                         code: slugify(key.toLowerCase()),
                         name: key,
-                        cities: _.pluck(value, 'city').map(function (value, key) {
+                        cities: _.pluck(value, 'name').map(function (value, key) {
                             return {
                                 code: slugify(value.toLowerCase()),
                                 name: value
@@ -63,16 +63,16 @@ router.post('/import', function (req, res, next) {
 
                 // Get state model
                 let stateModel = new StateModel({
-                    code: state.code,
-                    name: state.name,
+                    code: state.code.trim(),
+                    name: state.name.trim(),
                 });
 
                 // Get list of city models
                 let cityModelList = [];
                 state.cities.forEach(city => {
                     let cityModel = new CityModel({
-                        code: city.code,
-                        name: city.name,
+                        code: city.code.trim(),
+                        name: city.name.trim(),
                         state: stateModel._id
                     });
                     cityModel.save().then(() => {
