@@ -44,6 +44,7 @@ app.use(cookieParser());
  * Routes
  */
 app.use('/', indexRouter);
+app.use('/images', express.static(path.join(__dirname, 'app', 'public','images')));
 app.use('/cities', citiesRouter);
 app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);

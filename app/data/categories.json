@@ -1,18 +1,22 @@
 [
   {
     "code": "oxygen",
-    "name": "Oxygen"
+    "name": "Oxygen",
+    "icon": "/images/categories/oxygen/oxygen-128x128.png"
   },
   {
     "code": "plasma",
-    "name": "Plasma"
+    "name": "Plasma",
+    "icon": "/images/categories/plasma/plasma-128x128.png"
   },
   {
     "code": "beds",
-    "name": "Beds"
+    "name": "Beds",
+    "icon": "/images/categories/beds/beds-128x128.png"
   },
   {
     "code": "food",
-    "name": "Food"
+    "name": "Food",
+    "icon": "/images/categories/food/food-128x128.png"
   }
 ]

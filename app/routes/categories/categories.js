@@ -61,7 +61,8 @@ router.post('/import', function (req, res, next) {
             categories.forEach(category => {
                 let categoryModel = new CategoryModel({
                     code: category.code,
-                    name: category.name
+                    name: category.name,
+                    icon: category.icon
                 });
                 categoryModel.save().then(() => {
                     winston.info('Record Saved')
