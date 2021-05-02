@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
  * Get state by code
  */
 router.get('/:code', function (req, res, next) {
-    StateModel.find({
+    StateModel.findOne({
         code: req.params.code
     }).populate('cities').then((state) => {
         Object.keys(state).length === 0 ? res.status(404).json({}) : res.status(200).json(state);
