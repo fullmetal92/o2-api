@@ -19,7 +19,6 @@ router.post('/', function (req, res, next) {
     const inputCity = req.body.city;
     const inputPhone = req.body.phone;
     const inputState = req.body.state;
-    const inputMessage = req.body.message;
     const inputCategories = req.body.categories;
 
     if (inputName && inputPhone && inputCategories && inputCategories.length > 0 && inputCity && inputState) {
@@ -33,6 +32,9 @@ router.post('/', function (req, res, next) {
     }
 });
 
+/**
+ * Search contacts
+ */
 router.get('/search', function (req, res, next) {
     getContacts(req).then(result => {
         res.status(200).json(result);
@@ -41,6 +43,11 @@ router.get('/search', function (req, res, next) {
     });
 });
 
+/**
+ * Save a new contact
+ * @param req
+ * @returns {Promise<*>}
+ */
 async function saveContact(req) {
 
     const state = await StateModel.findOne({code: req.state}).exec();
@@ -65,6 +72,11 @@ async function saveContact(req) {
     });
 }
 
+/**
+ * Get contacts
+ * @param req
+ * @returns {Promise<*>}
+ */
 async function getContacts(req) {
 
     const state = await StateModel.findOne({code: req.query.state});
