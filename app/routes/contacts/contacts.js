@@ -1,3 +1,4 @@
+
 'use strict';
 
 const async = require('async');
@@ -7,7 +8,8 @@ const winston = require('../../../logger');
 const router = express.Router();
 const ContactModel = require('../../models/contact/ContactModel');
 const CategoryModel = require('../../models/categories/CategoryModel');
-
+const StateModel = require('../../models/geographic/StateModel');
+const CityModel = require('../../models/geographic/CityModel');
 
 /**
  * Get contact by id
@@ -60,38 +62,57 @@ const CategoryModel = require('../../models/categories/CategoryModel');
  * Create new contact
  */
 router.post('/', function (req, res, next) {
-
     const inputName = req.body.name;
     const inputCity = req.body.city;
     const inputPhone = req.body.phone;
     const inputState = req.body.state;
     const inputMessage = req.body.message;
     const inputServices = req.body.services;
-
-    if (inputName && inputPhone && inputServices && inputServices.length > 0) {
-
-        CategoryModel.find({code: {$in: inputServices}}).then(results => {
-
-            let contactModel = new ContactModel({
-                name: inputName,
-                //city: inputCity,
-                //state: inputState,
-                phone: inputPhone,
-                message: inputMessage,
-                categories: results
-            });
-
-            contactModel.save().then(result => {
-                res.status(201).json({});
-            }).catch(err => {
-                res.status(500).json(err);
-            })
-        }).catch(err => {
-            res.status(500).json(err);
-        });
+    if (inputName && inputPhone && inputServices && inputServices.length > 0 && inputCity && inputState) {
+        saveContact(req.body, res);
     } else {
         res.status(401).json({message: "Bad Request"});
     }
 });
+
+router.get('/search', function(req, res, next) {
+    getContacts(req, res); // TODO : add this in a helper file.
+});
+
+async function saveContact (request, res) {
+    var state = await StateModel.findOne({code: request.state});
+    var city = await CityModel.findOne({code: request.city});
+    CategoryModel.find({code: {$in: request.services}}).then(results => {
+        let contactModel = new ContactModel({
+            name: request.name,
+            city: city,
+            state: state,
+            phone: request.phone,
+            message: request.message,
+            categories: results
+        });
+        contactModel.save().then(result => {
+            res.status(201).json({});
+        }).catch(err => {
+            res.status(500).json(err);
+        })
+    }).catch(err => {
+        res.status(500).json(err);
+    });
+}
+
+async function getContacts(req, res) {
+    var state = await StateModel.findOne({code: req.query.state});
+    var city = await CityModel.findOne({code: req.query.city});
+    var category = await CategoryModel.findOne({code: req.query.category});
+    ContactModel.
+        find({categories: category, city: city, state: state}).
+        exec((error, contacts) => {
+            if (error) {
+                res.status(400).json({error : 'We are facing issues while fetching the contacts!'})
+            }
+            res.status(201).json({contacts : contacts});
+        });
+}
 
 module.exports = router;
