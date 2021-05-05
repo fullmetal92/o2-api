@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const winston = require('./logger');
 const mongoose = require('mongoose');
-const config = require('./config').get(process.env.NODE_ENV);
+const config = require('dotenv').config();
 
 const indexRouter = require('./app/routes/index');
 const sandboxRouter = require('./app/routes/misc/sandbox');
@@ -13,7 +13,7 @@ const statesRouter = require('./app/routes/geographic/states');
 const contactsRouter = require('./app/routes/contacts/contacts');
 const categoryRouter = require('./app/routes/categories/categories');
 
-const contactusRouter = require('./app/routes/contactus');
+const contactUsRouter = require('./app/routes/contactus');
 const feedbackRouter = require('./app/routes/feedback');
 
 const app = express();
@@ -22,7 +22,16 @@ const app = express();
  * Database configuration
  * Reference: http://mongoosejs.com/docs/connections.html
  */
-mongoose.connect(config.database.url, config.database.options);
+mongoose.connect(process.env.DB_URL, {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASSWORD,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(r => {
+    winston.info('Successfully connected to database!');
+}).catch(err => {
+    winston.error('Failed to connect to the database', err);
+});
 
 /**
  * View engine setup
@@ -44,13 +53,13 @@ app.use(cookieParser());
  * Routes
  */
 app.use('/', indexRouter);
-app.use('/images', express.static(path.join(__dirname, 'app', 'public','images')));
+app.use('/images', express.static(path.join(__dirname, 'app', 'public', 'images')));
 app.use('/cities', citiesRouter);
 app.use('/states', statesRouter);
 app.use('/sandbox', sandboxRouter);
 app.use('/contacts', contactsRouter);
 app.use('/categories', categoryRouter);
-app.use('/contact-us', contactusRouter);
+app.use('/contact-us', contactUsRouter);
 app.use('/feedback', feedbackRouter);
 
 /**

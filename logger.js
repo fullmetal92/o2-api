@@ -6,9 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const winston = require('winston');
 const moment = require('moment');
+const config = require('dotenv').config();
 const env = process.env.NODE_ENV || 'development';
-const config = require('./config').get(env);
-const logDirName = config.logger.dirName;
+
+const logDirName = process.env.LOG_DIR;
 const logDir = path.join(__dirname, logDirName);
 const logPath = path.join(logDir, env);
 
@@ -28,7 +29,7 @@ const logger = new (winston.Logger)({
             prettyPrint: true
         }),
         new (winston.transports.File)({
-            filename: path.join(logPath, moment().format(config.logger.dateFormat) + config.logger.extension),
+            filename: path.join(logPath, moment().format(process.env.LOG_DATE_FORMAT) + process.env.LOG_EXTENSION),
             timestamp: tsFormat,
             level: env === 'development' ? 'debug' : 'info',
         })
