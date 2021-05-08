@@ -1,7 +1,7 @@
 # Project Suraksha
 
 ## Why this project?
-India has been hit with the worst COVID-19 outbreak at the end of this decade. People arein dire need for basic life saving supplies like Oxygen cylinders, Hopistal Beds, Plasma donors etc.
+India has been hit with the worst COVID-19 outbreak at the end of this decade. People are in dire need for basic life saving supplies like Oxygen cylinders, Hospital Beds, Plasma donors etc.
 
 This project is an initiative to help people get access to people who can provide these basic medical resource which can be the difference between life and death in these tough times.
 
