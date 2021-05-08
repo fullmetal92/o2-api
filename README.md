@@ -43,7 +43,7 @@ To setup the codebase locally, follow these steps:
 
 Feel free to reach out to us at:
 
-Email: deepak.fatal1ty@gmail.com
-Phone (whatsapp only): +91-8800385385
+* Email: deepak.fatal1ty@gmail.com
+* Phone (whatsapp only): +91-8800385485
 
 We'd love your feedback on the project. Any help with this project will surely go a long way in saving lives in this troubled times. We will prevail!! 
