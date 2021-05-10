@@ -10,7 +10,7 @@ const StateModel = require('../../models/geographic/StateModel');
  * Get all cities
  */
 router.get('/', function(req, res, next){
-   CityModel.find({}).then(cities => {
+   CityModel.find({}).cache('cities', 2592000).then(cities => {
         res.status(200).json(cities);
    }).catch(err => {
        res.status(400).json({});

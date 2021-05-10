@@ -11,7 +11,7 @@ const CategoryModel = require('../../models/categories/CategoryModel');
  * Get all categories
  */
 router.get('/', function (req, res, next) {
-    CategoryModel.find({}).then(function (categories) {
+    CategoryModel.find({}).cache('categories', 2592000).then(function (categories) {
         res.status(200).json(categories);
     });
 });

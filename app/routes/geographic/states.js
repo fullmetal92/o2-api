@@ -14,7 +14,7 @@ const StateModel = require('../../models/geographic/StateModel');
  * Get all states
  */
 router.get('/', function (req, res, next) {
-    StateModel.find({}, {code: true, name: true}).then(states => {
+    StateModel.find({}, {code: true, name: true}).cache('states', 2592000).then(states => {
         res.status(200).json(states)
     }).catch(err => {
         res.status(404).json({});

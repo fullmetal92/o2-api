@@ -3,8 +3,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const winston = require('./logger');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const config = require('dotenv').config();
+const cache  = require('./cache');
 
 const indexRouter = require('./app/routes/index');
 const sandboxRouter = require('./app/routes/misc/sandbox');
