@@ -2,21 +2,25 @@
   {
     "code": "oxygen",
     "name": "Oxygen",
-    "icon": "/images/categories/oxygen/oxygen-128x128.png"
+    "icon": "/images/categories/oxygen/oxygen-128x128.png",
+    "order": 1
   },
   {
     "code": "plasma",
     "name": "Plasma",
-    "icon": "/images/categories/plasma/plasma-128x128.png"
+    "icon": "/images/categories/plasma/plasma-128x128.png",
+    "order": 2
   },
   {
     "code": "beds",
     "name": "Beds",
-    "icon": "/images/categories/beds/beds-128x128.png"
+    "icon": "/images/categories/beds/beds-128x128.png",
+    "order": 3
   },
   {
     "code": "food",
     "name": "Food",
-    "icon": "/images/categories/food/food-128x128.png"
+    "icon": "/images/categories/food/food-128x128.png",
+    "order": 4
   }
 ]
