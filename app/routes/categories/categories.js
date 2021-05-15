@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('underscore');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -12,6 +13,7 @@ const CategoryModel = require('../../models/categories/CategoryModel');
  */
 router.get('/', function (req, res, next) {
     CategoryModel.find({}).cache('categories', 2592000).then(function (categories) {
+    CategoryModel.find({}).sort({order: 'asc'}).then(function (categories) {
         res.status(200).json(categories);
     });
 });
@@ -35,7 +37,8 @@ router.post('/', function (req, res, next) {
     const categoryModel = new CategoryModel({
         code: req.body.code,
         name: req.body.name,
-        icon: req.body.icon
+        icon: req.body.icon,
+        order: req.body.order
     });
 
     categoryModel.save().then(() => {
@@ -62,7 +65,8 @@ router.post('/import', function (req, res, next) {
                 let categoryModel = new CategoryModel({
                     code: category.code,
                     name: category.name,
-                    icon: category.icon
+                    icon: category.icon,
+                    order: category.order
                 });
                 categoryModel.save().then(() => {
                     winston.info('Record Saved')

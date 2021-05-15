@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema({
     code: {type: String, required: true, maxLength: 64, unique: true},
     name: {type: String, required: true, maxLength: 255},
-    icon: {type: String}
+    icon: {type: String},
+    order: {type: Number, required: true},
 }, {
     timestamps: {
         createdAt: 'created_at',
