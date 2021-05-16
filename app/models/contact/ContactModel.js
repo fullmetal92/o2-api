@@ -18,7 +18,8 @@ const contactSchema = new Schema({
     categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    }]
+    }],
+    rating: {type: Number, default: 0}
 }, {
     timestamps: {
         createdAt: 'created_at',

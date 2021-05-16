@@ -44,6 +44,38 @@ router.get('/search', function (req, res, next) {
 });
 
 /**
+ * Upvote rating
+ */
+router.post('/:id/upvote', function (req, res, next) {
+    ContactModel.findOne({
+        _id: req.params.id
+    }).then(result => {
+        result.rating = result.rating + 1;
+        result.save().then((saveResult) => {
+            res.status(200).json(saveResult);
+        })
+    }).catch(err => {
+        res.status(401).json({message: "Bad Request"});
+    });
+});
+
+/**
+ * Downvote rating
+ */
+router.post('/:id/downvote', function (req, res, next) {
+    ContactModel.findOne({
+        _id: req.params.id
+    }).then(result => {
+        result.rating = result.rating - 1;
+        result.save().then((saveResult) => {
+            res.status(200).json(saveResult);
+        })
+    }).catch(err => {
+        res.status(401).json({message: "Bad Request"});
+    });
+});
+
+/**
  * Save a new contact
  * @param req
  * @returns {Promise<*>}
@@ -60,7 +92,8 @@ async function saveContact(req) {
             state: state,
             phone: req.phone,
             message: req.message,
-            categories: results
+            categories: results,
+            rating: 0
         });
         contactModel.save().then(result => {
             return result;
@@ -83,11 +116,15 @@ async function getContacts(req) {
     const city = await CityModel.findOne({code: req.query.city});
     const category = await CategoryModel.findOne({code: req.query.category});
 
-    return ContactModel.find({categories: category, city: city, state: state}).then(result => {
-        return result;
-    }).catch(err => {
-        throw err;
-    });
+    return ContactModel.find({categories: category, city: city, state: state})
+        .sort({
+            rating: 'desc'
+        })
+        .then(result => {
+            return result;
+        }).catch(err => {
+            throw err;
+        });
 }
 
 module.exports = router;
