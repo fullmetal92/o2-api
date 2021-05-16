@@ -64,13 +64,13 @@ mongoose.Query.prototype.exec = async function () {
         client.hset(this.hashKey, key, JSON.stringify(result));
         client.expire(this.hashKey, this.expire);
 
-        winston.log('Return data from MongoDB');
+        winston.info('Return data from MongoDB');
         return result;
     }
 
     // return found cachedValue
     const doc = JSON.parse(cacheValue);
-    winston.log('Return data from Redis');
+    winston.info('Return data from Redis');
     return Array.isArray(doc)
         ? doc.map(d => new this.model(d))
         : new this.model(doc);
